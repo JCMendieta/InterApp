@@ -17,4 +17,10 @@ struct Localidad: Identifiable {
         self.nombreCompleto = dto.NombreCompleto ?? "Sin datos."
         self.abreviacionCiudad = dto.AbreviacionCiudad ?? "Sin datos."
     }
+    
+    init( nombreCompleto: String, abreviacionCiudad: String) {
+        self.id = UUID()
+        self.nombreCompleto = nombreCompleto
+        self.abreviacionCiudad = abreviacionCiudad
+    }
 }
