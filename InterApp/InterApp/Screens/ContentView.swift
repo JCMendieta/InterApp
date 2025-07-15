@@ -8,40 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var viewModel = ContentViewModel()
+    @StateObject private var router = Router()
     
     var body: some View {
-        ScrollView {
-            VStack {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
-                Text("Hello, world!")
-                
-                if viewModel.isLoading {
-                    ProgressView()
-                } else if let errorMessage = viewModel.errorMessage {
-                    Text(errorMessage)
-                        .foregroundColor(.red)
-                }
-                
-                ForEach(viewModel.localities) { locality in
-                    VStack(alignment: .leading) {
-                        Text(locality.nombreCompleto)
-                            .font(.headline)
-                        Text("ID: \(locality.abreviacionCiudad)")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
+        NavigationStack(path: $router.path) {
+            HomeScreen()
+                .navigationDestination(for: Route.self) { route in
+                    switch route {
+                    case .localidades:
+                        LocalidadesScreen()
+                    case .tablas:
+                        TablasScreen()
                     }
                 }
-            }
-            .padding()
-            .onAppear {
-                Task {
-                    await viewModel.bringLocalitiesData()
-                }
-            }
         }
+        .environmentObject(router)
     }
 }
 

@@ -1,13 +1,13 @@
 //
-//  ContentViewModel.swift
+//  LocalidadesViewModel.swift
 //  InterApp
 //
-//  Created by Juan Camilo Mendieta Hernández on 14/07/25.
+//  Created by Juan Camilo Mendieta Hernández on 15/07/25.
 //
 
-import Foundation
+import SwiftUI
 
-class ContentViewModel: ObservableObject {
+final class LocalidadesScreenViewModel: ObservableObject {
     @Published var localities: [Localidad] = []
     @Published var isLoading = false
     @Published var errorMessage: String?
