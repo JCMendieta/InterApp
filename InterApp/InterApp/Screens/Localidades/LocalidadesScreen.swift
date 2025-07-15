@@ -13,35 +13,37 @@ struct LocalidadesScreen: View {
     @StateObject private var viewModel = LocalidadesScreenViewModel()
     
     var body: some View {
-        ScrollView {
-            VStack {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
-                Text("Hello, world!")
-                
-                if viewModel.isLoading {
-                    ProgressView()
-                } else if let errorMessage = viewModel.errorMessage {
-                    Text(errorMessage)
-                        .foregroundColor(.red)
-                }
-                
-                ForEach(viewModel.localities) { locality in
-                    VStack(alignment: .leading) {
-                        Text(locality.nombreCompleto)
-                            .font(.headline)
-                        Text("ID: \(locality.abreviacionCiudad)")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
+        ZStack {
+            Color.interMediumOrange
+                .ignoresSafeArea()
+            
+            ScrollView {
+                VStack(spacing: 15) {
+                    Text("Localidades")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.interBoneWhite)
+                        .padding(.bottom, 10)
+                    
+                    if viewModel.isLoading {
+                        ProgressView()
+                            .tint(Color.interBoneWhite)
+                    } else if let errorMessage = viewModel.errorMessage {
+                        Text(errorMessage)
+                            .foregroundColor(.red)
+                    } else {
+                        ForEach(viewModel.localities) { locality in
+                            LocalidadCellView(locality: locality)
+                        }
                     }
                 }
+                .padding()
             }
-            .padding()
-            .onAppear {
-                Task {
-                    await viewModel.bringLocalitiesData()
-                }
+            .scrollIndicators(.hidden)
+        }
+        .onAppear {
+            Task {
+                await viewModel.bringLocalitiesData()
             }
         }
     }
