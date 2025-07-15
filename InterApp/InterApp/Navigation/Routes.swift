@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Rutas disponibles para el objeto Router.
 enum Route: Hashable {
     case tablas
     case localidades
