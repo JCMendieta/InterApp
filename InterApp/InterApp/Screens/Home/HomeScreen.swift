@@ -16,6 +16,7 @@ struct HomeScreen: View {
     
     @StateObject private var viewModel = HomeScreenViewModel()
     
+    //TODO: - Agregar campos de inicio de sesion
     var body: some View {
             ZStack {
                 Color(Color.interDarkBlue)
@@ -50,9 +51,15 @@ struct HomeScreen: View {
                 }
                 .padding(.horizontal, 40)
                 .padding(.bottom)
+                .alert("Error", isPresented: $viewModel.showErrorAlert) {
+                            Button("OK", role: .cancel) { }
+                        } message: {
+                            Text(viewModel.errorMessage)
+                        }
             }
             .onAppear {
                 Task {
+                    try await viewModel.authenticateUser(username: TestData.testUsername, password: TestData.testPassword)
                     await viewModel.checkAppVersion()
                 }
             }

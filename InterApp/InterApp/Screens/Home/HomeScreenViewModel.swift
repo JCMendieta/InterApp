@@ -10,6 +10,8 @@ import Foundation
 final class HomeScreenViewModel: ObservableObject {
     private let repository: RepositoryProtocol
     
+    @Published var showErrorAlert = false
+    @Published var errorMessage = ""
     @Published var versionStatus: VersionCheckResult = .upToDate
     
     init(repository: RepositoryProtocol = Repository()) {
@@ -47,6 +49,23 @@ final class HomeScreenViewModel: ObservableObject {
             versionStatus = .updateAvailable
         case .orderedDescending:
             versionStatus = .newerThanRelease
+        }
+    }
+    
+    @MainActor
+    func authenticateUser(username: String, password: String) async throws {
+        do {
+            let response = try await repository.authenticateUser(username: username, password: password)
+            
+            UserDefaultsManager.user = response.usuario
+            UserDefaultsManager.identification = response.identificacion
+            UserDefaultsManager.name = response.nombre
+            
+        } catch APIError.responseStatusNotSuccesful {
+            errorMessage = "La autenticación falló. Por favor verifica tus credenciales."
+            showErrorAlert = true
+        } catch {
+            print("hubo error \(error)")
         }
     }
 }

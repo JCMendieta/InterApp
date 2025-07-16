@@ -18,6 +18,8 @@ enum APIError: Error {
     case requestFailed
     /// Error que ocurre cuando no se puede crear una URL válida.
     case invalidURL
+    ///  Error que ocurre cuando response no es transformable a HTTPResponse
+    case invalidResponse
     
     /// Proporciona un mensaje de error para el usuario.
     ///
@@ -26,7 +28,7 @@ enum APIError: Error {
         switch self {
         case .decodingError:
             return "Hay problemas con la operación, intenta mas tarde."
-        case .responseStatusNotSuccesful, .requestFailed, .invalidURL:
+        case .responseStatusNotSuccesful, .requestFailed, .invalidURL, .invalidResponse:
             return "La petición no fue exitosa."
         }
     }
