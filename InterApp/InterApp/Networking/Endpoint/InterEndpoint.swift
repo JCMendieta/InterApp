@@ -12,6 +12,7 @@ import Foundation
 /// Este enum centraliza las URLs de los endpoints utilizados en la aplicación.
 enum InterEndpoint {
     case localities
+    case appVersion
     
     /// La URL base del endpoint como String.
     /// - Returns: La URL completa del endpoint como String.
@@ -19,6 +20,8 @@ enum InterEndpoint {
         switch self {
         case .localities:
             return "https://apitesting.interrapidisimo.co/apicontrollerpruebas/api/ParametrosFramework/ObtenerLocalidadesRecogidas"
+        case .appVersion:
+            return "https://apitesting.interrapidisimo.co/apicontrollerpruebas/api/ParametrosFramework/ConsultarParametrosFramework/VPStoreAppControl"
         }
     }
     
@@ -32,7 +35,7 @@ enum InterEndpoint {
         }
         
         switch self {
-        case .localities:
+        case .localities, .appVersion:
             return url
         }
     }

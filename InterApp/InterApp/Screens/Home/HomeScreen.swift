@@ -9,6 +9,7 @@ import SwiftUI
 
 //TODO: - Agregar Strings a archivo dedicado
 //TODO: - Agregar manejo de estados a la vista
+//TODO: - Agregar TextStyle
 struct HomeScreen: View {
     @EnvironmentObject
     private var router: Router
@@ -37,8 +38,23 @@ struct HomeScreen: View {
                     }
                     
                     Spacer()
+                    
+                    if viewModel.versionStatus.shouldShowAlert {
+                        Text(viewModel.versionStatus.alertMessage)
+                            .font(.footnote)
+                            .fontWeight(.semibold)
+                            .foregroundColor(Color.interBoneWhite)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
+                    }
                 }
                 .padding(.horizontal, 40)
+                .padding(.bottom)
+            }
+            .onAppear {
+                Task {
+                    await viewModel.checkAppVersion()
+                }
             }
         }
 }
