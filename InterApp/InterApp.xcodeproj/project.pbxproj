@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A27E7E42E27EA3E002C8F9B /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5A27E7E32E27EA3E002C8F9B /* RealmSwift */; };
 		5A39BE3F2E25ED7900AB1A0F /* XMLCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 5A39BE3E2E25ED7900AB1A0F /* XMLCoder */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A27E7E42E27EA3E002C8F9B /* RealmSwift in Frameworks */,
 				5A39BE3F2E25ED7900AB1A0F /* XMLCoder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,6 +114,7 @@
 			name = InterApp;
 			packageProductDependencies = (
 				5A39BE3E2E25ED7900AB1A0F /* XMLCoder */,
+				5A27E7E32E27EA3E002C8F9B /* RealmSwift */,
 			);
 			productName = InterApp;
 			productReference = 5AC247F92E259D4100724A54 /* InterApp.app */;
@@ -194,6 +197,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				5A39BE3D2E25ED7900AB1A0F /* XCRemoteSwiftPackageReference "XMLCoder" */,
+				5A27E7E02E27EA3E002C8F9B /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5AC247FA2E259D4100724A54 /* Products */;
@@ -560,6 +564,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5A27E7E02E27EA3E002C8F9B /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		5A39BE3D2E25ED7900AB1A0F /* XCRemoteSwiftPackageReference "XMLCoder" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MaxDesiatov/XMLCoder";
@@ -571,6 +583,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5A27E7E32E27EA3E002C8F9B /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A27E7E02E27EA3E002C8F9B /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
 		5A39BE3E2E25ED7900AB1A0F /* XMLCoder */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5A39BE3D2E25ED7900AB1A0F /* XCRemoteSwiftPackageReference "XMLCoder" */;

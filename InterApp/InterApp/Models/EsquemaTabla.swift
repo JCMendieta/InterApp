@@ -30,4 +30,16 @@ struct EsquemaTabla: Identifiable {
         self.metodoApp = dto.metodoApp ?? ""
         self.fechaActualizacionSincro = dto.fechaActualizacionSincro
     }
+    
+    init(realmObject: PersistedEsquemaTabla) {
+        self.nombreTabla = realmObject.nombreTabla
+        self.pk = realmObject.pk
+        self.queryCreacion = realmObject.queryCreacion
+        self.batchSize = realmObject.batchSize
+        self.filtro = realmObject.filtro
+        self.error = realmObject.error ?? ""
+        self.numeroCampos = realmObject.numeroCampos
+        self.metodoApp = realmObject.metodoApp ?? ""
+        self.fechaActualizacionSincro = realmObject.fechaActualizacionSincro
+    }
 }

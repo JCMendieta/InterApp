@@ -13,9 +13,11 @@ final class TablasScreenViewModel: ObservableObject {
     @Published var errorMessage: String?
     
     private let repository: RepositoryProtocol
+    private let realmManager = RealmManager.shared
     
     init(repository: RepositoryProtocol = Repository()) {
         self.repository = repository
+        loadCachedSchemas()
     }
     
     @MainActor
@@ -25,6 +27,10 @@ final class TablasScreenViewModel: ObservableObject {
         
         do {
             let schemas = try await repository.fetchTableSchemas()
+            let realmObject = schemas.map { PersistedEsquemaTabla(dto: $0)}
+            
+            realmManager.deleteAll(PersistedEsquemaTabla.self)
+            realmManager.saveObject(realmObject)
             
             self.tableSchemas = schemas.map { EsquemaTabla(dto: $0) }
         } catch {
@@ -33,5 +39,14 @@ final class TablasScreenViewModel: ObservableObject {
         }
         
         isLoading = false
+    }
+    
+    func loadCachedSchemas() {
+        guard let realmObjects = realmManager.fetchObjects(PersistedEsquemaTabla.self) else {
+            self.tableSchemas = []
+            return
+        }
+        
+        self.tableSchemas = Array(realmObjects).map { EsquemaTabla(realmObject: $0) }
     }
 }
