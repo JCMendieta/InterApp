@@ -9,6 +9,9 @@ import SwiftUI
 
 @main
 struct InterAppApp: App {
+    
+    private let userDefaultsManager = UserDefaultsManager.shared
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
