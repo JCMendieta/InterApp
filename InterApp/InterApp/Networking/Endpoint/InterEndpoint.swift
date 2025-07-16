@@ -14,6 +14,7 @@ enum InterEndpoint {
     case localities
     case appVersion
     case authenticate
+    case tableSchemas
     
     /// La URL base del endpoint como String.
     /// - Returns: La URL completa del endpoint como String.
@@ -25,12 +26,14 @@ enum InterEndpoint {
             return "https://apitesting.interrapidisimo.co/apicontrollerpruebas/api/ParametrosFramework/ConsultarParametrosFramework/VPStoreAppControl"
         case .authenticate:
             return "https://apitesting.interrapidisimo.co/FtEntregaElectronica/MultiCanales/ApiSeguridadPruebas/api/Seguridad/AuthenticaUsuarioApp"
+        case .tableSchemas:
+            return "https://apitesting.interrapidisimo.co/apicontrollerpruebas/api/SincronizadorDatos/ObtenerEsquema/true"
         }
     }
     
     var method: String {
         switch self {
-        case .localities, .appVersion:
+        case .localities, .appVersion, .tableSchemas:
             return "GET"
         case .authenticate:
             return "POST"
@@ -50,6 +53,8 @@ enum InterEndpoint {
                 "IdAplicativoOrigen": "9",
                 "Content-Type": "application/json"
             ]
+        case .tableSchemas:
+            return ["Usuario": UserDefaultsManager.user ?? ""]
         default:
             return [:]
         }
@@ -65,7 +70,7 @@ enum InterEndpoint {
         }
         
         switch self {
-        case .localities, .appVersion, .authenticate:
+        case .localities, .appVersion, .authenticate, .tableSchemas:
             return url
         }
     }
