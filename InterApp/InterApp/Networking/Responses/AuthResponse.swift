@@ -7,6 +7,7 @@
 
 import Foundation
 
+//TODO: - The response was updated at 10:18 AM with new data. Commented conflicting properties.
 struct AuthResponse: Decodable {
     let usuario: String
     let identificacion: String?
@@ -14,15 +15,15 @@ struct AuthResponse: Decodable {
     let apellido1: String?
     let apellido2: String?
     let cargo: String?
-    let aplicaciones: [String]?
-    let ubicaciones: [String]?
+//    let aplicaciones: [String]?
+//    let ubicaciones: [String]?
     let mensajeResultado: Int
     let idLocalidad: String?
     let nombreLocalidad: String?
     let nomRol: String?
     let idRol: String?
     let tokenJWT: String?
-    let modulosApp: [String]?
+//    let modulosApp: [String]?
     
     enum CodingKeys: String, CodingKey {
         case usuario = "Usuario"
@@ -31,15 +32,15 @@ struct AuthResponse: Decodable {
         case apellido1 = "Apellido1"
         case apellido2 = "Apellido2"
         case cargo = "Cargo"
-        case aplicaciones = "Aplicaciones"
-        case ubicaciones = "Ubicaciones"
+//        case aplicaciones = "Aplicaciones"
+//        case ubicaciones = "Ubicaciones"
         case mensajeResultado = "MensajeResultado"
         case idLocalidad = "IdLocalidad"
         case nombreLocalidad = "NombreLocalidad"
         case nomRol = "NomRol"
         case idRol = "IdRol"
         case tokenJWT = "TokenJWT"
-        case modulosApp = "ModulosApp"
+//        case modulosApp = "ModulosApp"
     }
 }
 

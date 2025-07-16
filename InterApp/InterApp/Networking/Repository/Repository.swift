@@ -36,6 +36,8 @@ protocol RepositoryProtocol {
     ///           inválidas (basado en la respuesta del servidor), o si los datos
     ///           recibidos no pueden ser decodificados.
     func authenticateUser(username: String, password: String) async throws -> AuthResponse
+    
+    func fetchTableSchemas() async throws -> [EsquemaTablaDTO]
 }
 
 final class Repository: RepositoryProtocol {
@@ -108,5 +110,18 @@ final class Repository: RepositoryProtocol {
             headers: InterEndpoint.authenticate.headers,
             body: body
         )
+    }
+    
+    func fetchTableSchemas() async throws -> [EsquemaTablaDTO] {
+        guard let url = try? InterEndpoint.tableSchemas.asURL() else {
+            throw APIError.invalidURL
+        }
+        
+        return try await servicesManager.request(
+            url,
+            entity: [EsquemaTablaDTO].self,
+            method: InterEndpoint.tableSchemas.method,
+            headers: InterEndpoint.tableSchemas.headers,
+            body: nil)
     }
 }

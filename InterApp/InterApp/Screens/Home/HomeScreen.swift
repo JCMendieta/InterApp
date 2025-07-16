@@ -29,7 +29,15 @@ struct HomeScreen: View {
                         .foregroundColor(Color.interBoneWhite)
                     
                     Spacer()
-
+                    
+                    VStack(alignment: .leading) {
+                        Text(UserDefaultsManager.user ?? "")
+                        Text(UserDefaultsManager.name ?? "")
+                        Text(UserDefaultsManager.identification ?? "")
+                    }
+                    .foregroundColor(Color.interBoneWhite)
+                    .fontWeight(.semibold)
+                    
                     InterButton(title: "Navegar a localidades") {
                         viewModel.navigateToLocalidades(router: router)
                     }
