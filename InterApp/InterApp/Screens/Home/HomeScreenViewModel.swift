@@ -49,6 +49,18 @@ final class HomeScreenViewModel: ObservableObject {
             versionStatus = .newerThanRelease
         }
     }
+    
+    func authenticateUser(username: String, password: String) async throws {
+        do {
+            let response = try await repository.authenticateUser(username: username, password: password)
+            
+            print("USUARIO:\(response.usuario)")
+            print("MENSAJE:\(response.mensajeResultado)")
+            
+        } catch {
+            print("hubo error \(error)")
+        }
+    }
 }
 
 enum VersionCheckResult {

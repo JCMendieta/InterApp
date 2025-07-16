@@ -53,6 +53,7 @@ struct HomeScreen: View {
             }
             .onAppear {
                 Task {
+                    try await viewModel.authenticateUser(username: TestData.testUsername, password: TestData.testPassword)
                     await viewModel.checkAppVersion()
                 }
             }
