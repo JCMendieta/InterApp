@@ -17,6 +17,13 @@ protocol RepositoryProtocol {
     /// - Throws: Un error si la obtención de los datos falla (p. ej., un error
     ///           de red o de decodificación).
     func fetchLocalitiesCollected() async throws -> [LocalidadDTO]
+    
+    /// Obtiene la versión más reciente de la aplicación desde el servidor.
+    /// - Returns: Un `String` que representa la versión de la aplicación publicada
+    ///            en el servidor (p. ej., "100").
+    /// - Throws: Un error si la solicitud de red falla, si el servidor no responde
+    ///           o si los datos recibidos no pueden ser interpretados.
+    func fetchAppVersion() async throws -> String
 }
 
 final class Repository: RepositoryProtocol {
@@ -38,6 +45,18 @@ final class Repository: RepositoryProtocol {
         
         do {
             return try await servicesManager.request(apiURL, entity: [LocalidadDTO].self)
+        } catch {
+            throw error
+        }
+    }
+    
+    func fetchAppVersion() async throws -> String {
+        guard let apiURL = try? InterEndpoint.appVersion.asURL() else {
+            throw APIError.invalidURL
+        }
+        
+        do {
+            return try await servicesManager.request(apiURL, entity: String.self)
         } catch {
             throw error
         }
